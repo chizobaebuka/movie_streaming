@@ -1,12 +1,17 @@
-export interface IUser {
+export interface ICore {
     id: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface IUser extends ICore {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-    createdAt: Date;
-    updatedAt: Date;
 }
+
+export interface IUserWithoutPassword extends Omit<IUser, 'password'> {}
 
 export interface IMovie {
     id: string;

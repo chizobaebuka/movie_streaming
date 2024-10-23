@@ -5,6 +5,7 @@ import sequelize from './config/database';
 import dotenv from 'dotenv';
 import swaggerSpec from './config/swagger';
 import swaggerUi from 'swagger-ui-express';
+import authRouter from './routes/authRoutes';
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// app.use('/auth', authRoutes);
+app.use('/auth', authRouter);
 // app.use('/movies', movieRoutes);
 
 app.listen(PORT, async () => {
