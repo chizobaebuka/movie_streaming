@@ -1,3 +1,5 @@
+import { Optional } from "sequelize";
+
 export interface ICore {
     id: string;
     createdAt: Date;
@@ -11,28 +13,32 @@ export interface IUser extends ICore {
     password: string;
 }
 
-export interface IUserWithoutPassword extends Omit<IUser, 'password'> {}
+export interface IUserWithoutPassword extends Omit<IUser, 'password'> { }
 
-export interface IMovie {
-    id: string;
+
+export enum WatchState {
+    UNWATCHED = 'unwatched',
+    WATCHING = 'watching',
+    WATCHED = 'watched'
+}
+export interface IMovie extends ICore {
     title: string;
     description: string;
+    rating: number;
     genreId: string;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
-export interface IGenre {
-    id: string;
+// Optional fields for creating a movie (id, createdAt, updatedAt are auto-generated)
+export interface IMovieCreation extends Optional<IMovie, "id" | "createdAt" | "updatedAt"> { }
+
+
+export interface IGenre extends ICore {
     name: string;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
-export interface IWatchlist {
-    id: string;
+export interface IGenreCreation extends Optional<IGenre, 'id' | 'createdAt' | 'updatedAt'> { }
+
+export interface IWatchlist extends ICore {
     userId: string;
     movieId: string;
-    createdAt: Date;
-    updatedAt: Date;
 }

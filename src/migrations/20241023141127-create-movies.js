@@ -2,6 +2,12 @@
 
 const { DataTypes } = require('sequelize');
 
+const WatchState = {
+  UNWATCHED: 'unwatched',
+  WATCHING: 'watching',
+  WATCHED: 'watched'
+};
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -19,6 +25,15 @@ module.exports = {
       description: {
         type: DataTypes.TEXT,
         allowNull: false,
+      },
+      rating: {
+        type: DataTypes.FLOAT,
+        allowNull: true,
+      },
+      watchState: {
+        type: DataTypes.ENUM(...Object.values(WatchState)),
+        allowNull: true,
+        defaultValue: WatchState.UNWATCHED,
       },
       genreId: {
         type: DataTypes.UUID,
